@@ -1,7 +1,7 @@
-package org.example.mail.testing.po;
+package org.example.mail.testing.page;
 
+import org.example.mail.testing.page.base.BasePage;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 
 public class NavigatorPage extends BasePage {
     public static final By WRITE_MESSAGE_BUTTON = By.cssSelector("a[href='#compose']");
@@ -13,24 +13,20 @@ public class NavigatorPage extends BasePage {
     public static final By POPUP_CONFIRM_EXIT_ACCOUNT_BUTTON = By.xpath("//a[@data-testid='logout']");
 
 
-    public NavigatorPage(WebDriver driver) {
-        super(driver);
-    }
-
     public MessagePage pressWriteMessageButton() {
         webDriverWaitVisibility(60, WRITE_MESSAGE_BUTTON);
         driver.findElement(WRITE_MESSAGE_BUTTON).click();
-        return new MessagePage(driver);
+        return new MessagePage();
     }
 
     public MessagePage openDraftFolder() {
         driver.findElement(DRAFT_FOLDER).click();
-        return new MessagePage(driver);
+        return new MessagePage();
     }
 
     public BoxPage openSentFolder() {
         driver.findElement(SENT_FOLDER).click();
-        return new BoxPage(driver);
+        return new BoxPage();
     }
 
     public NavigatorPage openUserAccountMenu() {

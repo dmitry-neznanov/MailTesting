@@ -1,7 +1,7 @@
-package org.example.mail.testing.po;
+package org.example.mail.testing.page;
 
+import org.example.mail.testing.page.base.BasePage;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -12,10 +12,6 @@ public class BoxPage extends BasePage {
     public static final By DRAFT_MESSAGE = By.xpath("//div[@class=\"mail-MessageSnippet-Wrapper\"]");
     public static final By SENT_MESSAGE = By.xpath("//div[@class=\"ns-view-container-desc mail-MessagesList js-messages-list\"]");
 
-    public BoxPage(WebDriver driver) {
-        super(driver);
-    }
-
     public WebElement getDraftMessageInFolder() {
         webDriverWaitVisibility(DRAFT_MESSAGE);
         return driver.findElement(DRAFT_MESSAGE);
@@ -24,7 +20,7 @@ public class BoxPage extends BasePage {
     public MessagePage openDraftMessage() {
         webDriverWaitVisibility(DRAFT_MESSAGE);
         driver.findElement(DRAFT_MESSAGE).click();
-        return new MessagePage(driver);
+        return new MessagePage();
     }
 
     public Boolean isDraftMessageSent() {

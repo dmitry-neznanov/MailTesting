@@ -1,64 +1,76 @@
-package org.example.mail.testing.runner;
+package org.example.mail.testing.stepdef;
 
+import io.cucumber.java.en.And;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import org.example.mail.testing.page.BoxPage;
 import org.example.mail.testing.page.LoginPage;
 import org.example.mail.testing.page.MessagePage;
 import org.example.mail.testing.page.NavigatorPage;
 import org.testng.Assert;
-import org.testng.annotations.Test;
 
-public class MailTest {
-
-
-    @Test
-    public void loginToMailAndSendMessageFromDraftTest() {
-        NavigatorPage navigatorPage = new LoginPage()
+public class MailStepDef {
+    @Given("I login to mail")
+    public void iLoginToMail() {
+        new LoginPage()
                 .open()
                 .pressLoginButton()
                 .sendLogin()
                 .pressEnterButton()
                 .sendPass()
                 .goToMail();
+    }
 
-        MessagePage message = navigatorPage.pressWriteMessageButton();
+    @When("I write message with subject {string} and text {string}")
+    public void iWriteMessageWithSubjectAndText(String subject, String text) {
+        MessagePage message = new NavigatorPage().pressWriteMessageButton();
         message.fillAddress()
                 .choseAddress()
-                .fillSubject("test")
-                .fillTextField("ВСЕМ ХАЙ");
+                .fillSubject(subject)
+                .fillTextField(text);
+    }
 
+    @Then("I left it as draft")
+    public void iLeftItAsDraft() {
         MessagePage draftMessage = new NavigatorPage().openDraftFolder();
+        draftMessage = draftMessage.openDraftMessage();
         Assert.assertTrue(draftMessage.getDraftMessageInFolder().isDisplayed(),
                 "Сообщения нет в черновике.");
-        draftMessage = draftMessage.openDraftMessage();
-
-        Assert.assertEquals(message.getAddress(),
-                "login",
+        Assert.assertEquals(draftMessage.getAddress(),
+                "dimakraskin@yandex.ru",
                 "Получатель сообщения не совпадает");
-        Assert.assertEquals(message.getSubject(),
+        Assert.assertEquals(draftMessage.getSubject(),
                 "test",
                 "Тема сообщения не совпадает");
-        Assert.assertEquals(message.getTextField(),
+        Assert.assertEquals(draftMessage.getTextField(),
                 "ВСЕМ ХАЙ",
                 "Текст сообщения не совпадает");
+    }
 
-        draftMessage.sendMessageButton();
-        Assert.assertTrue(draftMessage.isDraftMessageSent(),
+    @And("I send message from draft folder")
+    public void iSendMessageFromDraftFolder() {
+        new MessagePage().sendMessageButton();
+    }
+
+    @Then("Message disappears form draft folder")
+    public void messageDisappearFormDraftFolder() {
+        Assert.assertTrue(new MessagePage().isDraftMessageSent(),
                 "Сообщение не исчезло из папки черновиков.");
+    }
 
+    @Then("Message appears in sent folder")
+    public void messageAppearsInSendFolder() {
         BoxPage sentMessage = new NavigatorPage().openSentFolder();
         Assert.assertTrue(sentMessage.getSentMessageInFolder().isDisplayed(),
                 "Сообщение нет в папке отправлено");
+    }
 
+    @And("I exit from account")
+    public void iExitFromAccount() {
         new NavigatorPage()
                 .openUserAccountMenu()
                 .pressExitAccountButton()
                 .pressConfirmExitButton();
     }
-
-    /*@AfterClass
-    public void stopBrowser() {
-        driver.quit();
-    }*/
-
-
 }

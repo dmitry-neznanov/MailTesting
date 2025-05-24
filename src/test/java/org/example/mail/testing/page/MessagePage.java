@@ -1,7 +1,6 @@
-package org.example.mail.testing.po;
+package org.example.mail.testing.page;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 
 public class MessagePage extends BoxPage {
     public static final By ADDRESS_FIELD = By.cssSelector("div[id='compose-field-1']");
@@ -12,10 +11,6 @@ public class MessagePage extends BoxPage {
     public static final By SUBJECT_CONTENT = By.xpath("//input[@class='composeTextField ComposeSubject-TextField']");
     public static final By SEND_BUTTON = By.cssSelector("button[class='Button2 Button2_view_action Button2_size_l']");
     public static final By TEXT_FIELD_CONTENT = By.xpath("//div[@class='cke_wysiwyg_div cke_reset cke_enable_context_menu cke_editable cke_editable_themed cke_contents_ltr']");
-
-    public MessagePage(WebDriver driver) {
-        super(driver);
-    }
 
     public MessagePage fillAddress() {
         driver.findElement(ADDRESS_FIELD).click();
