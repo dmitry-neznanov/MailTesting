@@ -38,7 +38,7 @@ public class MailStepDef {
         Assert.assertTrue(draftMessage.getDraftMessageInFolder().isDisplayed(),
                 "Сообщения нет в черновике.");
         Assert.assertEquals(draftMessage.getAddress(),
-                "dimakraskin@yandex.ru",
+                "login",
                 "Получатель сообщения не совпадает");
         Assert.assertEquals(draftMessage.getSubject(),
                 "test",

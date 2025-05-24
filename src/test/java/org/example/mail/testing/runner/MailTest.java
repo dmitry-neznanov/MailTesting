@@ -55,10 +55,4 @@ public class MailTest {
                 .pressConfirmExitButton();
     }
 
-    /*@AfterClass
-    public void stopBrowser() {
-        driver.quit();
-    }*/
-
-
 }

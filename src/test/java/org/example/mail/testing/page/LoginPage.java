@@ -5,8 +5,8 @@ import org.openqa.selenium.By;
 
 public class LoginPage extends BasePage {
     public static final String URL = "https://360.yandex.ru/mail/";
-    public static final String LOGIN = "dimakraskin@yandex.ru";
-    public static final String PASS = "Test228282";
+    public static final String LOGIN = "login";
+    public static final String PASS = "pass";
 
     public static final By LOGIN_BUTTON = By.id("header-login-button");
     public static final By LOGIN_FIELD = By.xpath("//input[@name='login']");
